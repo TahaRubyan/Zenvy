@@ -335,9 +335,16 @@ function Hero({ setPage }) {
             transition: "opacity 1s ease .3s, transform 1s ease .3s",
           }}
         >
-          <div className="hero-ring-wrap">
-            <div className="float">
-              <RingSVG size={280} />
+          <div className="hero-img-wrap">
+            <div className="hero-img-container float">
+              <img
+                src="/images/hero.png"
+                alt="AURUM Fine Jewellery"
+                className="hero-image"
+              />
+              <div className="hero-ring-overlay">
+                <RingSVG size={180} />
+              </div>
             </div>
             <div className="hero-glow" />
             {orbits}
@@ -565,10 +572,32 @@ function shapeFor(p) {
 }
 
 function ProductCard({ product }) {
+  const [imageError, setImageError] = useState(false);
+  
+  const imageMapping = {
+    ring: "ring.png",
+    pendant: "necklace.png",
+    bangle: "bangle.png",
+    drops: "earrings.png",
+    tiara: "tiara.png",
+    cuff: "cuff.png"
+  };
+  
+  const imagePath = `/images/products/${imageMapping[product.shape]}`;
+
   return (
     <div className="product-card" style={{ background: product.bg }}>
       <div className="product-art" style={{ background: product.bg }}>
-        {shapeFor(product)}
+        {!imageError ? (
+          <img
+            src={imagePath}
+            alt={product.name}
+            className="product-image"
+            onError={() => setImageError(true)}
+          />
+        ) : (
+          shapeFor(product)
+        )}
         <div className="product-badge f-cinzel">{product.cat}</div>
       </div>
       <div className="product-info">
@@ -820,6 +849,38 @@ function HomePage({ setPage }) {
   );
 }
 
+/* ── Team Member Card with image fallback ── */
+function TeamMemberCard({ member, delay }) {
+  const [imageError, setImageError] = useState(false);
+  const teamImageMapping = {
+    "Sophie Aurum": "/images/team/sophie.png",
+    "Marcel Dupont": "/images/team/marcel.png",
+    "Kenji Tanaka": "/images/team/kenji.png"
+  };
+
+  return (
+    <FadeUp delay={delay}>
+      <div className="team-card">
+        <div className="team-avatar">
+          {!imageError ? (
+            <img
+              src={teamImageMapping[member.name]}
+              alt={member.name}
+              className="team-avatar-img"
+              onError={() => setImageError(true)}
+            />
+          ) : (
+            <span className="shimmer">{member.initial}</span>
+          )}
+        </div>
+        <p className="team-name">{member.name}</p>
+        <p className="team-role">{member.role}</p>
+        <p className="team-gen">{member.gen}</p>
+      </div>
+    </FadeUp>
+  );
+}
+
 /* ──────────── ABOUT PAGE ──────────── */
 function AboutPage({ setPage }) {
   const milestones = [
@@ -915,11 +976,15 @@ function AboutPage({ setPage }) {
             </div>
           </FadeUp>
           <FadeUp delay={200}>
-            <div className="ring-center">
-              <div className="ring-halo" />
-              <div className="float">
-                <RingSVG size={300} />
+            <div className="about-img-wrap">
+              <div className="about-img-container float">
+                <img
+                  src="/images/atelier.png"
+                  alt="Maison Aurum Atelier"
+                  className="about-image"
+                />
               </div>
+              <div className="about-img-glow" />
             </div>
           </FadeUp>
         </div>
@@ -965,14 +1030,7 @@ function AboutPage({ setPage }) {
           </FadeUp>
           <div className="team-grid">
             {team.map((t, i) => (
-              <FadeUp key={t.name} delay={i * 140}>
-                <div className="team-card">
-                  <div className="team-avatar shimmer">{t.initial}</div>
-                  <p className="team-name">{t.name}</p>
-                  <p className="team-role">{t.role}</p>
-                  <p className="team-gen">{t.gen}</p>
-                </div>
-              </FadeUp>
+              <TeamMemberCard member={t} delay={i * 140} key={t.name} />
             ))}
           </div>
         </div>
