@@ -338,7 +338,7 @@ function Hero({ setPage }) {
           <div className="hero-img-wrap">
             <div className="hero-img-container float">
               <img
-                src="/images/hero.png"
+                src="/images/hero.webp"
                 alt="AURUM Fine Jewellery"
                 className="hero-image"
               />
@@ -575,12 +575,12 @@ function ProductCard({ product }) {
   const [imageError, setImageError] = useState(false);
   
   const imageMapping = {
-    ring: "ring.png",
-    pendant: "necklace.png",
-    bangle: "bangle.png",
-    drops: "earrings.png",
-    tiara: "tiara.png",
-    cuff: "cuff.png"
+    ring: "ring.webp",
+    pendant: "necklace.webp",
+    bangle: "bangle.webp",
+    drops: "earrings.webp",
+    tiara: "tiara.webp",
+    cuff: "cuff.webp"
   };
   
   const imagePath = `/images/products/${imageMapping[product.shape]}`;
@@ -853,9 +853,9 @@ function HomePage({ setPage }) {
 function TeamMemberCard({ member, delay }) {
   const [imageError, setImageError] = useState(false);
   const teamImageMapping = {
-    "Sophie Aurum": "/images/team/sophie.png",
-    "Marcel Dupont": "/images/team/marcel.png",
-    "Kenji Tanaka": "/images/team/kenji.png"
+    "Sophie Aurum": "/images/team/sophie.webp",
+    "Marcel Dupont": "/images/team/marcel.webp",
+    "Kenji Tanaka": "/images/team/kenji.webp"
   };
 
   return (
@@ -979,7 +979,7 @@ function AboutPage({ setPage }) {
             <div className="about-img-wrap">
               <div className="about-img-container float">
                 <img
-                  src="/images/atelier.png"
+                  src="/images/atelier.webp"
                   alt="Maison Aurum Atelier"
                   className="about-image"
                 />
